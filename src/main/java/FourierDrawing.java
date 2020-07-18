@@ -47,11 +47,11 @@ public class FourierDrawing extends JFrame implements WindowListener {
 		// TODO Auto-generated method stub
 		Graphics2D g2= (Graphics2D) g;
 		
-		double t=0;
+		double t=0.0;
 		double dt=0.005;
 
 		Complex exp;
-		while (t<=1000){
+		while (t<=1){
 		
 			exp = new Complex(0,t);
 
@@ -59,7 +59,7 @@ public class FourierDrawing extends JFrame implements WindowListener {
 			
 			plot (g2, ct);
 
-			System.out.println(ct);
+			System.out.println(t+"\t"+ct);
 			t=t+dt;
 		
 			try {
@@ -75,7 +75,7 @@ public class FourierDrawing extends JFrame implements WindowListener {
 	static Complex compute(Complex exp) {
 		Complex c=new Complex(0);
 		for (int i=0;i<Cn.length;i++) {
-			c=c.add(Cn[i].multiply(E.pow(exp.multiply(i-Cn.length/2).multiply(Math.PI))));
+			c=c.add(Cn[i].multiply(E.pow(exp.multiply(i-Cn.length/2).multiply(-2*Math.PI))));
 		}
 		return c;
 	}
