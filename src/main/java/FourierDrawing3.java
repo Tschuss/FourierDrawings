@@ -27,8 +27,9 @@ import org.apache.commons.math3.complex.Complex;
 public class FourierDrawing3 extends JFrame implements WindowListener, WindowStateListener, MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = -4655249361815548007L;
 
-	static int width=600;
-	static int height=600;
+	static int fix=100;
+	static int width=800;
+	static int height=width;
 	static int half=width/2;
 	static BasicStroke B1=new BasicStroke();
 	static BasicStroke B3=new BasicStroke(3);
@@ -42,7 +43,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 	static int SIZE=101;
 	static double dt=0.01;
 	static int initial=-(SIZE-1)/2;
-	static int ending=(SIZE-1)/2;
+	static int ending= (SIZE-1)/2;
 				
 	static int SLEEP=50;
 	
@@ -55,7 +56,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 	static Complex E=new Complex (Math.E,0);	
 
     void init() {
-		this.setBounds(300, 300, width, height);
+		this.setBounds(fix, fix, width, height);
 		keep=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		myDraw=new ArrayList<FourierDrawing3.Point>();
 
@@ -163,7 +164,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 	}
 
 	private void clearAll(Graphics g) {
-		System.out.println("Vamos a borrar todo...");
+		//System.out.println("Vamos a borrar todo...");
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth()-1, this.getHeight()-1);
 		g.setColor(Color.DARK_GRAY);
@@ -185,7 +186,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 		int a=0; 
 		while (t<1 && myDraw.size()>0) {
 			Complex exp=new Complex(0,-2.0 * Math.PI * n * t);
-			//Calcular Ft a partir del dibujo 
+			//Calcular Ft a partir del dibujo (sacando 101 puntos de él, repartidos)
 			a = (int)Math.round(myDraw.size()*t);
 			if (a>=myDraw.size()) {
 				a--;
@@ -225,7 +226,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 				int y= (int) Math.round(arrow.getImaginary());
 				drawCenteredCircle(g2,Color.LIGHT_GRAY, x, y, 2* (int)Math.round(incremento.abs()));
 				//flecha
-				drawArrow (g2,Color.LIGHT_GRAY,(int) Math.round(arrow.getReal()),(int) Math.round( arrow.getImaginary()), (int) Math.round(f.getReal()), (int) Math.round(f.getImaginary()));
+				drawArrow (g2,Color.CYAN,(int) Math.round(arrow.getReal()),(int) Math.round( arrow.getImaginary()), (int) Math.round(f.getReal()), (int) Math.round(f.getImaginary()));
 
 				
 			}
@@ -238,7 +239,11 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 	private static void drawArrow(Graphics2D g, Color c, int x1, int y1, int x2, int y2) {
 		
 		drawLine(g,c,x1, y1, x2, y2);
-		drawCenteredCircle(g, c, x2, y2, 5);
+		int x=x2;
+		int y=y2;
+
+		drawCenteredCircle(g, c, x, y, 4);
+	
 	}
 
 	static void drawCenteredCircle(Graphics g, Color c, int x, int y, int r) {
@@ -301,15 +306,11 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
  * Mouse
  */
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		//System.out.println(e);
-	/*	
-		if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+		if ((e.getModifiers() & MouseEvent.BUTTON3_MASK) == MouseEvent.BUTTON3_MASK) {
+			fourier=true;
 			drawn=false;
-			init();
 			repaint();
 		}
-	*/	
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -324,39 +325,42 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
 
 	public void mousePressed(MouseEvent e) {
 		//inicializamos la lista de puntos guardados y borramos el dibujo
-		init();
-		anterior=null;
-		clear=true;
-		drawn=false;
-		repaint();
+		if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+			init();
+			anterior=null;
+			clear=true;
+			drawn=false;
+			repaint();
+		}
 	}
 
 	public void mouseReleased(MouseEvent e) {
 		//calculamos los nuevo coeficientes y pintamos la serie de Fourier
-		Cn=new ArrayList<Complex>();
-		
-		for (int n=initial;n<=ending;n++) {
-			Cn.add(computeCn(n));
-		}
-		
-/*		
- 			Cn.sort(new Comparator<Complex>() {
-
-			public int compare(Complex o1, Complex o2) {
-				if (o1.abs()>o2.abs()) {
-					return 1;
-				} else if (o1.abs()<o2.abs()) {
-					return -1;
-				} else {
-					return 0;
-				}
+		if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+			Cn=new ArrayList<Complex>();
+			
+			for (int n=initial;n<=ending;n++) {
+				Cn.add(computeCn(n));
 			}
-		});
-*/		
-		fourier=true;
-		drawn=false;
-		repaint();
-		
+			
+	/*		
+	 			Cn.sort(new Comparator<Complex>() {
+	
+				public int compare(Complex o1, Complex o2) {
+					if (o1.abs()>o2.abs()) {
+						return 1;
+					} else if (o1.abs()<o2.abs()) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
+			});
+	*/		
+			fourier=true;
+			drawn=false;
+			repaint();
+		}	
 	}
 
 /**
