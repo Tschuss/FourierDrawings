@@ -1,6 +1,4 @@
 import java.awt.BasicStroke;
-import java.awt.Button;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,13 +12,10 @@ import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Comparator;
+
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JTextField;
+
 
 import org.apache.commons.math3.complex.Complex;
 
@@ -42,8 +37,8 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 	
 	static int SIZE=101;
 	static double dt=0.01;
-	static int initial=-(SIZE-1)/2;
-	static int ending= (SIZE-1)/2;
+	//static int initial=-(SIZE-1)/2;
+	//static int ending= (SIZE-1)/2;
 				
 	static int SLEEP=50;
 	
@@ -108,7 +103,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 				} else if (myDraw.size()>0) {
 					//System.out.println("Vamos a pintar solo el ultimo...");
 	
-					//pinto solo el ultimo punto añadido a la traza
+					//pinto solo el ultimo punto aï¿½adido a la traza
 					Point p=myDraw.get(myDraw.size()-1);
 					if (anterior!=null) {
 						drawLine(g2,Color.YELLOW,anterior.getX(),anterior.getY(),p.getX(), p.getY());
@@ -186,7 +181,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 		int a=0; 
 		while (t<1 && myDraw.size()>0) {
 			Complex exp=new Complex(0,-2.0 * Math.PI * n * t);
-			//Calcular Ft a partir del dibujo (sacando 101 puntos de él, repartidos)
+			//Calcular Ft a partir del dibujo (sacando 101 puntos de ï¿½l, repartidos)
 			a = (int)Math.round(myDraw.size()*t);
 			if (a>=myDraw.size()) {
 				a--;
@@ -211,6 +206,8 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 		Complex incremento=null;
 		BufferedImage trace=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = (Graphics2D)trace.getGraphics();
+		int initial=-(SIZE-1)/2;
+		int ending= (SIZE-1)/2;
 		for (int n = initial;n<=ending;n++) {
 			Complex exp = new Complex(0, 2.0 * Math.PI * n * t);
 			//ajustar N para que sea 0+ y usarlo en el arraylist
@@ -253,7 +250,7 @@ public class FourierDrawing3 extends JFrame implements WindowListener, WindowSta
 	}
 	
 private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
-		// TODO Auto-generated method stub
+
 		g.setColor(c);
 		g.drawOval(x+half, y+half, r, r2);
 	}
@@ -262,42 +259,41 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
  * Window	
  */
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
+	
 	}
 
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
+	
 		System.exit(0);
 		
 	}
 
 	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
 	public void windowStateChanged(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -314,12 +310,12 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
@@ -337,29 +333,20 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
 	public void mouseReleased(MouseEvent e) {
 		//calculamos los nuevo coeficientes y pintamos la serie de Fourier
 		if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
-			Cn=new ArrayList<Complex>();
-			
-			for (int n=initial;n<=ending;n++) {
-				Cn.add(computeCn(n));
-			}
-			
-	/*		
-	 			Cn.sort(new Comparator<Complex>() {
-	
-				public int compare(Complex o1, Complex o2) {
-					if (o1.abs()>o2.abs()) {
-						return 1;
-					} else if (o1.abs()<o2.abs()) {
-						return -1;
-					} else {
-						return 0;
-					}
+	//		while (SIZE<400) {
+				Cn=new ArrayList<Complex>();
+				int initial=-(SIZE-1)/2;
+				int ending= (SIZE-1)/2;
+				for (int n=initial;n<=ending;n++) {
+					Cn.add(computeCn(n));
 				}
-			});
-	*/		
-			fourier=true;
-			drawn=false;
-			repaint();
+		
+				fourier=true;
+				drawn=false;
+				repaint();
+
+	//			SIZE=(SIZE-1)*2+1;
+	//		}
 		}	
 	}
 
@@ -368,7 +355,6 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
  */
 
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -392,7 +378,6 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -424,7 +409,7 @@ private static void drawOval(Graphics g, Color c, int x, int y, int r, int r2) {
 		
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
+			
 			return "("+getX()+","+getY()+")";
 		}
 	}

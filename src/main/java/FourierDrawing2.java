@@ -1,6 +1,4 @@
 import java.awt.BasicStroke;
-import java.awt.Button;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,10 +14,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JTextField;
 
 import org.apache.commons.math3.complex.Complex;
 
@@ -105,7 +99,7 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
 				} else if (myDraw.size()>0) {
 					//System.out.println("Vamos a pintar solo el ultimo...");
 	
-					//pinto solo el ultimo punto añadido a la traza
+					//pinto solo el ultimo punto aï¿½adido a la traza
 					Point p=myDraw.get(myDraw.size()-1);
 					if (anterior!=null) {
 						g2.drawLine(anterior.getX(),anterior.getY(),p.getX(), p.getY());
@@ -242,42 +236,42 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
  * Window	
  */
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
+	
 		System.exit(0);
 		
 	}
 
 	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
+	
 
 	}
 
 	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 	
 	public void windowStateChanged(WindowEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -286,7 +280,7 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
  * Mouse
  */
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		//System.out.println(e);
 	/*	
 		if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
@@ -298,12 +292,12 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
@@ -335,7 +329,7 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
  */
 
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
@@ -354,7 +348,7 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -386,7 +380,7 @@ public class FourierDrawing2 extends JFrame implements WindowListener, WindowSta
 		
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
+			
 			return "("+getX()+","+getY()+")";
 		}
 	}
